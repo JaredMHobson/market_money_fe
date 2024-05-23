@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Market Show Page', type: :feature do
-  it 'lists all markets with their name, city and state' do
+  it 'shows a markets info including their name, address and a list of all its vendors that link to their Vendor Show page' do
     visit market_path(322458)
 
     expect(page).to have_content("14&U Farmers' Market")

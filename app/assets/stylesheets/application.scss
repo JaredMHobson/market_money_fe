@@ -21,6 +21,12 @@
     margin: 0;
   }
 
+  #mainBody {
+    background-color: white;
+    height: 100vh;
+    padding: 0;
+  }
+
   h1.headers {
     margin-bottom: 0;
   }
@@ -40,4 +46,6 @@
 
   ul.no_bullets {
     list-style-type: none;
+    text-indent: 0;
+    padding: 0;
   }

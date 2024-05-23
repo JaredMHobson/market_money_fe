@@ -8,6 +8,12 @@ RSpec.describe 'Market Facade' do
     expect(facade.instance_variable_get(:@service)).to be_a MarketService
   end
 
+  it 'calls on the find_market method and stores it in state with @market when initialized with a Market ID' do
+    facade = MarketFacade.new(id: 322458)
+
+    expect(facade.market).to be_a Market
+  end
+
   describe '#instance_methods' do
     describe '#markets' do
       it 'takes market data from the service method get markets and returns an array of Market poros' do

@@ -144,6 +144,42 @@ RSpec.describe 'Market Service' do
       end
     end
 
+    describe '#get_market' do
+      it 'returns a single vendors data whose ID is passed through the argument' do
+        vendor = MarketService.new.get_vendor(54924)
+
+        expect(vendor).to have_key(:id)
+        expect(vendor[:id]).to be_a String
+
+        expect(vendor).to have_key(:type)
+        expect(vendor[:type]).to eq('vendor')
+
+        expect(vendor).to have_key(:relationships)
+        expect(vendor[:relationships]).to be_a Hash
+
+        expect(vendor[:relationships]).to have_key(:markets)
+        expect(vendor[:relationships][:markets]).to be_a Hash
+
+        expect(vendor).to have_key(:attributes)
+        expect(vendor[:attributes]).to be_a Hash
+
+        expect(vendor[:attributes]).to have_key(:name)
+        expect(vendor[:attributes][:name]).to be_a String
+
+        expect(vendor[:attributes]).to have_key(:description)
+        expect(vendor[:attributes][:description]).to be_a String
+
+        expect(vendor[:attributes]).to have_key(:contact_name)
+        expect(vendor[:attributes][:contact_name]).to be_a String
+
+        expect(vendor[:attributes]).to have_key(:contact_phone)
+        expect(vendor[:attributes][:contact_phone]).to be_a String
+
+        expect(vendor[:attributes]).to have_key(:credit_accepted)
+        expect(vendor[:attributes][:credit_accepted]).to be_in([true, false])
+      end
+    end
+
     describe '#get_url' do
       it 'consumes the argument API endpoint and parses the returned JSON into a hash' do
         response = MarketService.new.get_url('markets')
