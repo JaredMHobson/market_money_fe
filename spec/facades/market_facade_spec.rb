@@ -20,5 +20,27 @@ RSpec.describe 'Market Facade' do
         end
       end
     end
+
+    describe '#find_market' do
+      it 'returns a Market if the MarketFacade is initalized with a Market ID' do
+        facade = MarketFacade.new(id: 322458)
+
+        market = facade.find_market
+
+        expect(market).to be_a Market
+      end
+    end
+
+    describe '#market_vendors' do
+      it 'returns an array of Vendors that belong to the market if the MarketFacade is initialized with a Market ID' do
+        facade = MarketFacade.new(id: 322458)
+
+        vendors = facade.market_vendors
+
+        vendors.each do |vendor|
+          expect(vendor).to be_a Vendor
+        end
+      end
+    end
   end
 end

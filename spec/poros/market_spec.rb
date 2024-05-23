@@ -22,4 +22,12 @@ RSpec.describe 'Market' do
     expect(@market.state).to eq('Market State')
     expect(@market.zip).to eq('Market Zip')
   end
+
+  describe '#instance_methods' do
+    describe '#city_state_zip' do
+      it 'combines the city, state and zip and returns it as one string' do
+        expect(@market.city_state_zip).to eq('Market City, Market State Market Zip')
+      end
+    end
+  end
 end

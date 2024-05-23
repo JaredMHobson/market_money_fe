@@ -58,6 +58,92 @@ RSpec.describe 'Market Service' do
       end
     end
 
+    describe '#get_market' do
+      it 'returns a single markets data whose ID is passed through the argument' do
+        market = MarketService.new.get_market(322458)
+
+        expect(market).to have_key(:id)
+        expect(market[:id]).to be_a String
+
+        expect(market).to have_key(:type)
+        expect(market[:type]).to eq('market')
+
+        expect(market).to have_key(:relationships)
+        expect(market[:relationships]).to be_a Hash
+
+        expect(market[:relationships]).to have_key(:vendors)
+        expect(market[:relationships][:vendors]).to be_a Hash
+
+        expect(market).to have_key(:attributes)
+        expect(market[:attributes]).to be_a Hash
+
+        expect(market[:attributes]).to have_key(:name)
+        expect(market[:attributes][:name]).to be_a String
+
+        expect(market[:attributes]).to have_key(:street)
+        expect(market[:attributes][:street]).to be_a String
+
+        expect(market[:attributes]).to have_key(:city)
+        expect(market[:attributes][:city]).to be_a String
+
+        expect(market[:attributes]).to have_key(:county)
+        expect(market[:attributes][:county]).to be_a String
+
+        expect(market[:attributes]).to have_key(:state)
+        expect(market[:attributes][:state]).to be_a String
+
+        expect(market[:attributes]).to have_key(:zip)
+        expect(market[:attributes][:zip]).to be_a String
+
+        expect(market[:attributes]).to have_key(:lat)
+        expect(market[:attributes][:lat]).to be_a String
+
+        expect(market[:attributes]).to have_key(:lon)
+        expect(market[:attributes][:lon]).to be_a String
+
+        expect(market[:attributes]).to have_key(:vendor_count)
+        expect(market[:attributes][:vendor_count]).to be_a Integer
+      end
+    end
+
+    describe '#get_market_vendors' do
+      it 'returns an array of vendor data that belong to the market whose ID is passed through the argument' do
+        vendors = MarketService.new.get_market_vendors(322458)
+
+        vendors.each do |vendor|
+          expect(vendor).to have_key(:id)
+          expect(vendor[:id]).to be_a String
+
+          expect(vendor).to have_key(:type)
+          expect(vendor[:type]).to eq('vendor')
+
+          expect(vendor).to have_key(:relationships)
+          expect(vendor[:relationships]).to be_a Hash
+
+          expect(vendor[:relationships]).to have_key(:markets)
+          expect(vendor[:relationships][:markets]).to be_a Hash
+
+          expect(vendor).to have_key(:attributes)
+          expect(vendor[:attributes]).to be_a Hash
+
+          expect(vendor[:attributes]).to have_key(:name)
+          expect(vendor[:attributes][:name]).to be_a String
+
+          expect(vendor[:attributes]).to have_key(:description)
+          expect(vendor[:attributes][:description]).to be_a String
+
+          expect(vendor[:attributes]).to have_key(:contact_name)
+          expect(vendor[:attributes][:contact_name]).to be_a String
+
+          expect(vendor[:attributes]).to have_key(:contact_phone)
+          expect(vendor[:attributes][:contact_phone]).to be_a String
+
+          expect(vendor[:attributes]).to have_key(:credit_accepted)
+          expect(vendor[:attributes][:credit_accepted]).to be_in([true, false])
+        end
+      end
+    end
+
     describe '#get_url' do
       it 'consumes the argument API endpoint and parses the returned JSON into a hash' do
         response = MarketService.new.get_url('markets')

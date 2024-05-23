@@ -15,5 +15,7 @@ class Market
     @zip = attributes[:zip]
   end
 
-  
+  def city_state_zip
+    "#{@city}, #{@state} #{@zip}"
+  end
 end
