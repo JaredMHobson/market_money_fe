@@ -11,6 +11,14 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render partial: "shared/header" %>
+    <%= render partial: "shared/nav" %>
+
+    <div id="mainBody" class="container">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, class: name %>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>
