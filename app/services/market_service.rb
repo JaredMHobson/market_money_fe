@@ -15,6 +15,10 @@ class MarketService
     get_url("vendors/#{vendor_id}")[:data]
   end
 
+  def get_search_markets(search)
+    get_url("markets/search?name=#{search[:name]}&city=#{search[:city]}&state=#{search[:state]}")[:data]
+  end
+
   def get_url(url)
     response = conn.get(url)
     JSON.parse(response.body, symbolize_names: true)

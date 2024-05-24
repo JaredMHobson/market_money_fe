@@ -1,18 +1,41 @@
 <div class="container text-center p-0" id="vendor_info">
-  <h1 class="headers bg-secondary text-white"><%= @facade.vendor.name %></h1>
+  <h1 class="headers bg-secondary text-white"><%= @vendor_facade.vendor.name %></h1>
   <div class="row">
-    <div class="col-6 text-start p-5">
+    <div class="col text-start p-5">
       <h4>Contact Info:</h4>
       <ul class="no_bullets">
-        <li>Name: <%= @facade.vendor.contact_name %></li>
-        <li>Phone: <%= @facade.vendor.contact_phone %></li>
+        <li>Name: <%= @vendor_facade.vendor.contact_name %></li>
+        <li>Phone: <%= @vendor_facade.vendor.contact_phone %></li>
       </ul>
 
-      <p>Credit Accepted?: <%= @facade.vendor.credit_accepted_yesno %></p>
+      <p>Credit Accepted?: <%= @vendor_facade.vendor.credit_accepted_yesno %></p>
 
-      <p>Description: <%= @facade.vendor.description %></p>
-    </div>
-    <div class="col-6">
+      <p>Description: <%= @vendor_facade.vendor.description %></p>
     </div>
   </div>
+  <div class="row" id="market_search">
+    <div class="col text-start p-5 pb-0">
+      <h4>Search for Markets to add this vendor: </h4>
+      <div class="d-flex flex-row">
+        <%= form_with url: vendor_path(@vendor_facade.vendor.id), method: :get do |f| %>
+          <%= f.text_field :name, placeholder: 'name' %>
+          <%= f.text_field :city, placeholder: 'city' %>
+          <%= f.text_field :state, placeholder: 'state' %>
+          <%= f.submit 'Search' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <% if @market_facade.search_markets %>
+    <div class="row" id="market_search_results">
+      <div class="col text-start p-5">
+        <ul class="no_bullets">
+          <% @market_facade.search_markets.each do |market| %>
+            <li><%= link_to market.name, market_path(market.id) %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
 </div>

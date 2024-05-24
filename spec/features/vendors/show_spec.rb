@@ -12,4 +12,25 @@ RSpec.describe 'Vendor Show Page', type: :feature do
       expect(page).to have_content("Description: This vendor offers a variety of artisanal cheeses.")
     end
   end
+
+  it 'can search for markets and each market name will link to its show page' do
+    visit vendor_path(54924)
+
+    within '#market_search' do
+      expect(page).to have_field(:name)
+      expect(page).to have_field(:city)
+      expect(page).to have_field(:state)
+
+      fill_in(:city, with: 'Alexandria')
+      fill_in(:state, with: 'Virginia')
+      click_on('Search')
+    end
+
+      expect(current_path).to eq(vendor_path(54924))
+
+    within '#market_search_results' do
+      expect(page).to have_link("Del Ray Farmers' Market", href: market_path(324298))
+      expect(page).to have_link("King Street Station Farmers' Market", href: market_path(326482))
+    end
+  end
 end

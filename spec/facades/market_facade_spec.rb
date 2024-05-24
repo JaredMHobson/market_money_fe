@@ -48,5 +48,22 @@ RSpec.describe 'Market Facade' do
         end
       end
     end
+
+    describe 'search_markets' do
+      it 'returns an array of Markets that meet the search params passed in when initialized' do
+        search_params = {
+          city: 'Alexandria',
+          state: 'Virginia'
+        }
+
+        facade = MarketFacade.new(search_params: search_params)
+
+        markets = facade.search_markets
+
+        markets.each do |market|
+          expect(market).to be_a Market
+        end
+      end
+    end
   end
 end

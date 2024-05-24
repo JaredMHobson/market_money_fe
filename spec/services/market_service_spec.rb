@@ -180,6 +180,61 @@ RSpec.describe 'Market Service' do
       end
     end
 
+    describe '#get_search_markets' do
+      it 'returns an array of market data that contains the passed argument name, city and state. These arguments are optional' do
+        search_params = {
+          city: 'Alexandria',
+          state: 'Virginia'
+        }
+
+        market_data = MarketService.new.get_search_markets(search_params)
+
+        market_data.each do |market|
+          expect(market).to have_key(:id)
+          expect(market[:id]).to be_a String
+
+          expect(market).to have_key(:type)
+          expect(market[:type]).to eq('market')
+
+          expect(market).to have_key(:relationships)
+          expect(market[:relationships]).to be_a Hash
+
+          expect(market[:relationships]).to have_key(:vendors)
+          expect(market[:relationships][:vendors]).to be_a Hash
+
+          expect(market).to have_key(:attributes)
+          expect(market[:attributes]).to be_a Hash
+
+          expect(market[:attributes]).to have_key(:name)
+          expect(market[:attributes][:name]).to be_a String
+
+          expect(market[:attributes]).to have_key(:street)
+          expect(market[:attributes][:street]).to be_a String
+
+          expect(market[:attributes]).to have_key(:city)
+          expect(market[:attributes][:city]).to be_a String
+
+          expect(market[:attributes]).to have_key(:county)
+          expect(market[:attributes][:county]).to be_a String
+
+          expect(market[:attributes]).to have_key(:state)
+          expect(market[:attributes][:state]).to be_a String
+
+          expect(market[:attributes]).to have_key(:zip)
+          expect(market[:attributes][:zip]).to be_a String
+
+          expect(market[:attributes]).to have_key(:lat)
+          expect(market[:attributes][:lat]).to be_a String
+
+          expect(market[:attributes]).to have_key(:lon)
+          expect(market[:attributes][:lon]).to be_a String
+
+          expect(market[:attributes]).to have_key(:vendor_count)
+          expect(market[:attributes][:vendor_count]).to be_a Integer
+        end
+      end
+    end
+
     describe '#get_url' do
       it 'consumes the argument API endpoint and parses the returned JSON into a hash' do
         response = MarketService.new.get_url('markets')

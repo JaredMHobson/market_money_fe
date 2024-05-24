@@ -1,9 +1,10 @@
 class MarketFacade
   attr_reader :market
 
-  def initialize(id: nil)
+  def initialize(id: nil, search_params: nil)
     @service = MarketService.new
     @id = id
+    @search_params = search_params
     @market ||= find_market
   end
 
@@ -33,6 +34,18 @@ class MarketFacade
         Vendor.new(format_vendor_data(vendor_data))
       end
     )
+  end
+
+  def search_markets
+    # @search_markets ||= (
+    if @search_params
+        markets_data = @service.get_search_markets(@search_params)
+
+        markets_data.map do |market_data|
+        Market.new(format_market_data(market_data))
+      end
+    end
+    # )
   end
 
   private
